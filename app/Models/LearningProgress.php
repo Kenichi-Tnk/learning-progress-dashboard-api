@@ -9,6 +9,8 @@ class LearningProgress extends Model
 {
     use HasFactory;
 
+    protected $table = 'learning_progresses';
+
     protected $fillable = [
         'title',
         'category',

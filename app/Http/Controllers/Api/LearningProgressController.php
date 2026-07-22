@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreLearningProgressRequest;
+use App\Http\Requests\UpdateLearningProgressRequest;
 use App\Models\LearningProgress;
-use Illuminate\Http\Request;
 
 class LearningProgressController extends Controller
 {
@@ -23,16 +24,9 @@ class LearningProgressController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreLearningProgressRequest $request)
     {
-        $validated = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'category' => ['nullable', 'string', 'max:255'],
-            'status' => ['nullable', 'string', 'in:not_started,in_progress,completed'],
-            'memo' => ['nullable', 'string'],
-            'started_at' => ['nullable', 'date'],
-            'completed_at' => ['nullable', 'date'],
-        ]);
+        $validated = $request->validated();
 
         $progress = LearningProgress::create($validated);
 
@@ -50,16 +44,9 @@ class LearningProgressController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, LearningProgress $learningProgress)
+    public function update(UpdateLearningProgressRequest $request, LearningProgress $learningProgress)
     {
-        $validated = $request->validate([
-            'title' => ['sometimes', 'required', 'string', 'max:255'],
-            'category' => ['nullable', 'string', 'max:255'],
-            'status' => ['nullable', 'string', 'in:not_started,in_progress,completed'],
-            'memo' => ['nullable', 'string'],
-            'started_at' => ['nullable', 'date'],
-            'completed_at' => ['nullable', 'date'],
-        ]);
+        $validated = $request->validated();
 
         $learningProgress->update($validated);
 
