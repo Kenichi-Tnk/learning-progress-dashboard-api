@@ -54,6 +54,26 @@ cp .env.example .env
 - ログ確認: ./vendor/bin/sail logs -f
 - Artisan 実行: ./vendor/bin/sail artisan <command>
 
+## API Endpoints
+
+- GET /api/health
+- GET /api/learning-progresses
+- POST /api/learning-progresses
+- GET /api/learning-progresses/{learning_progress}
+- PUT /api/learning-progresses/{learning_progress}
+- DELETE /api/learning-progresses/{learning_progress}
+
+### POST / PUT body example
+
+{
+	"title": "Laravel API学習",
+	"category": "backend",
+	"status": "in_progress",
+	"memo": "Sailで開発開始",
+	"started_at": "2026-07-22 10:00:00",
+	"completed_at": null
+}
+
 ## Notes
 
 - 本リポジトリは教材準拠として Laravel 10 系で作成しています。
