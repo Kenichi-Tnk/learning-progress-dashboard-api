@@ -6,15 +6,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreLearningProgressRequest;
 use App\Http\Requests\UpdateLearningProgressRequest;
 use App\Models\LearningProgress;
+use Illuminate\Http\Request;
 
 class LearningProgressController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $progresses = LearningProgress::query()
+            ->where('user_id', $request->user()->id)
             ->latest('updated_at')
             ->get();
 
@@ -27,6 +29,7 @@ class LearningProgressController extends Controller
     public function store(StoreLearningProgressRequest $request)
     {
         $validated = $request->validated();
+        $validated['user_id'] = $request->user()->id;
 
         $progress = LearningProgress::create($validated);
 
@@ -36,8 +39,10 @@ class LearningProgressController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(LearningProgress $learningProgress)
+    public function show(Request $request, LearningProgress $learningProgress)
     {
+        abort_unless($learningProgress->user_id === $request->user()->id, 404);
+
         return response()->json($learningProgress);
     }
 
@@ -46,6 +51,8 @@ class LearningProgressController extends Controller
      */
     public function update(UpdateLearningProgressRequest $request, LearningProgress $learningProgress)
     {
+        abort_unless($learningProgress->user_id === $request->user()->id, 404);
+
         $validated = $request->validated();
 
         $learningProgress->update($validated);
@@ -56,8 +63,10 @@ class LearningProgressController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(LearningProgress $learningProgress)
+    public function destroy(Request $request, LearningProgress $learningProgress)
     {
+        abort_unless($learningProgress->user_id === $request->user()->id, 404);
+
         $learningProgress->delete();
 
         return response()->json([], 204);

@@ -3,12 +3,21 @@
 namespace Tests\Feature;
 
 use App\Models\LearningProgress;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
 class LearningProgressValidationTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Sanctum::actingAs(User::factory()->create());
+    }
 
     public function test_create_learning_progress_validation_response_is_unified(): void
     {
@@ -40,6 +49,7 @@ class LearningProgressValidationTest extends TestCase
     public function test_update_learning_progress_fails_when_title_is_empty(): void
     {
         $progress = LearningProgress::create([
+            'user_id' => auth()->id(),
             'title' => '初期タイトル',
             'status' => 'in_progress',
         ]);

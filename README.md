@@ -78,3 +78,15 @@ cp .env.example .env
 
 - 本リポジトリは教材準拠として Laravel 10 系で作成しています。
 - API は http://localhost で確認できます。
+
+## API Contract
+
+フロントとバックエンドの最小契約は次を参照してください。
+
+- [API_CONTRACT.md](API_CONTRACT.md)
+
+## Development Checklist
+
+API 実装前、フロント結合前、障害切り分け前に必ず以下を確認してください。
+
+- [BACKEND_API_READY_CHECKLIST.md](BACKEND_API_READY_CHECKLIST.md)
