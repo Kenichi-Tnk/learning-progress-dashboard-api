@@ -19,7 +19,7 @@ learning-progress-dashboard の API 側プロジェクトです。
 
 このプロジェクトはDocker(Laravel Sail)上で動作するため、ローカルにPHPやMySQLを個別にインストールする必要はありません。ただし、`composer install`をローカルで実行するために、最低限のPHPとComposerが必要です。
 
-- Docker DeskTop: https://www.docker.com/products/docker-desttop/の手順に従ってインストールしてください。
+- Docker Desktop: https://www.docker.com/products/docker-desktop/の手順に従ってインストールしてください。
 - PHP: [Homebrew](http://brew.sh/)を利用する場合
 
 ```bash
